@@ -343,7 +343,7 @@
     storageKey: 'rize-finan4-u11-hurdle-v1', filePrefix: 'HurdleDesk', practiceStart: 't1',
     verifyUrl: 'https://rizecomputerscience.github.io/finan4-hurdle-desk/verify.html',
     calcPlaceholder: '(50000*0.08+30000*0.12)/80000',
-    calcHint: 'Type or tap. Use * to multiply and / to divide, so (50000*0.08+30000*0.12)/80000 gives 0.095, the worked example’s 9.5% hurdle rate.',
+    calcHint: 'Type or tap. Use * to multiply and / to divide, so (50000*0.08+30000*0.12)/80000 gives 0.095, a 9.5% hurdle rate.',
     story: { title: 'The Hurdle Desk', kicker: 'Corporate Finance, Unit 11', company: 'Halfmoon Dumplings', team: 'Finance Team',
       from: 'Imogen Takeda', fromTitle: 'head of finance, Halfmoon Dumplings',
       dek: 'You have joined the finance team at Halfmoon Dumplings, a restaurant chain that began as one food truck. Imogen Takeda, the head of finance, wants you to work out the return a new project has to beat, first for a food truck and then for real companies.',
