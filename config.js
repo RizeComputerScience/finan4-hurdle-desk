@@ -285,7 +285,7 @@
     if (t.id === 't2' || t.id === 't3') { const w = debtWord(t), st = stakeOf(t);
       return lvl === 1 ? `Owners’ stake: ${t.N} million × ${price(t.P)} = ${st}.`
         : `Owners’ stake: ${st}. Lenders’ dollars: ${mn(t.D)} × ${pp(t.rd, 1)} = ${mn(t.dd)}. Owners’ dollars: ${st} × ${pp(t.re, 2)} = ${mn(t.de)}. Hurdle rate: (${mn(t.dd)} + ${mn(t.de)}) ÷ (${mn(t.D)} of ${w} + ${st}) = ${pp(t.answer)}.`; }
-    if (t.id === 't4') return lvl === 1 ? `β × market premium = ${CMG.beta} × ${ERP}% = ${pp(CMG.beta * ERP, 3)}. In the calculator: <code>${RF}+${CMG.beta}*${ERP}</code>.`
+    if (t.id === 't4') return lvl === 1 ? `β × market premium = ${CMG.beta} × ${ERP}% = ${pp(CMG.beta * ERP, 3)}. In Desmos: <code>${RF}+${CMG.beta}*${ERP}</code>.`
       : `Treasury rate + β × market premium = ${RF}% + ${pp(CMG.beta * ERP, 3)} = ${pp(t.answer)}. That is almost exactly 9%, so the 9% in Unit 5 was a fair rate.`;
     if (t.id === 't5') return lvl === 1 ? `At ${pp(t.hc, 1)}: ${m(t.CF)} × ${af(t.AFc)} − ${m(t.I)} = ${sgn(t.nC)}.`
       : `At ${pp(t.hc, 1)}: ${sgn(t.nC)}. At ${pp(t.ra, 0)}: ${m(t.CF)} × ${af(t.AFa)} − ${m(t.I)} = ${sgn(t.nA)}. At the rate that fits a delivery app, the NPV is below zero, so pass.`;
