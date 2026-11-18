@@ -9,15 +9,18 @@
      first, then shows a worked example drawn as the SAME table the student fills (h.ladder), with different numbers.
    - Cut from the desk: the walkthrough, the riskier-project task (delivery app), the "the loan is not the rate" check, the
      "who expects more" check, Vail Resorts and Chipotle (the reading covers Chipotle).
-   The previous version is in v2-archive/. seedVersion 3 and version 3: progress and receipts from v2 do not carry over. */
+   The previous version is in v2-archive/. seedVersion 3 and version 3: progress and receipts from v2 do not carry over.
+   2026-11-18 (Audrey's review, CLO-4): wording only. The hurdle rate is named the WACC in titles, prompts, labels, checks and
+   the note; cost of debt, cost of equity and market value of equity are named where they appear. Steps and answer logic are
+   unchanged, so version 3 stays. The 11-12 config is in v3-archive/config.v-2026-11-18.js. */
 (function (root) {
   'use strict';
   const QUIZ = [
     { title: 'Quick check: the owners’ stake',
-      q: 'A company’s balance sheet says its owners’ equity is $30 million. Its shares are worth $120 million at today’s share price. Which number belongs in the owners’ stake line of the hurdle table?',
+      q: 'A company’s balance sheet says its owners’ equity is $30 million. Its shares are worth $120 million at today’s share price. Which number belongs in the owners’ stake line of the WACC table?',
       options: ['$120 million, what the shares are worth today', '$30 million, the balance sheet number', '$75 million, the average of the two', 'Neither. Use the number of shares'],
       answer: 0,
-      why: ['Right. The owners could sell their shares today for $120 million and invest that money somewhere else. That is the money they leave in the company, so it is the amount they expect a return on.',
+      why: ['Right. The owners could sell their shares today for $120 million and invest that money somewhere else. That is the money they leave in the company, its market value of equity, so it is the amount they expect a return on.',
         'The balance sheet number mostly records what owners paid in years ago. The owners could sell today for $120 million, so that is the money they leave in the company.',
         'Averaging two different measures gives a number nobody could sell for. Use what the shares are worth today.',
         'A share count is not an amount of money. Multiply the shares by today’s price to get the owners’ stake.'] },
@@ -25,10 +28,10 @@
       q: 'A company owes its lenders $40 million at 6% a year. Its shares are worth $60 million at today’s price, and its owners expect 11% a year. What hurdle rate should it use for a new project as risky as its current business?',
       options: ['9.0%', '8.5%', '8.0%', '11.0%'],
       answer: 0,
-      why: ['Right. Lenders expect $40 million × 6% = $2.4 million a year and owners expect $60 million × 11% = $6.6 million. That is $9.0 million on $100 million, a 9.0% hurdle rate. Exam questions look like this one.',
+      why: ['Right. Lenders expect $40 million × 6% = $2.4 million a year and owners expect $60 million × 11% = $6.6 million. That is $9.0 million on $100 million, a WACC of 9.0%, and that is the hurdle rate. Exam questions look like this one.',
         '8.5% is the plain average of 6% and 11%. The owners put in more money, so their 11% counts for more. Work in dollars: ($2.4 million + $6.6 million) ÷ $100 million = 9.0%.',
         '8.0% swaps the amounts, putting $60 million at 6% and $40 million at 11%. The lenders put in $40 million and the owners $60 million.',
-        '11.0% is what the owners alone expect. The lenders put in $40 million at a lower rate, so the hurdle rate for the whole company is lower: 9.0%.'] },
+        '11.0% is what the owners alone expect. The lenders put in $40 million at a lower rate, so the WACC for the whole company is lower: 9.0%.'] },
   ];
 
   const STEPS = [
@@ -105,7 +108,7 @@
         { key: 'bank', label: 'Bank’s dollars a year', calc: `${m(L)} × ${ip(rd)}`, num: dd, shown: m(dd), input: !faded, kind: 'usd' },
         { key: 'own', label: `${Who}’s dollars a year`, calc: `${m(E)} × ${ip(re)}`, num: de, shown: m(de), input: !faded, kind: 'usd' },
         { key: 'tot', label: 'Total dollars a year', calc: open ? `bank’s dollars + ${who}’s dollars` : `${m(dd)} + ${m(de)}`, num: dd + de, shown: m(dd + de), input: true, kind: 'usd' },
-        { key: 'hr', label: 'Hurdle rate', calc: open ? `total ÷ ${m(C)}` : `${m(dd + de)} ÷ ${m(C)}`, num: (dd + de) / C, shown: pc((dd + de) / C), input: true, kind: 'pct' }];
+        { key: 'hr', label: 'WACC', calc: open ? `total ÷ ${m(C)}` : `${m(dd + de)} ÷ ${m(C)}`, num: (dd + de) / C, shown: pc((dd + de) / C), input: true, kind: 'pct' }];
     },
     company: (N, P, D, rd, re, faded, filled) => {
       const E = N * P, dd = D * rd / 100, de = E * re / 100, open = !filled;
@@ -114,7 +117,7 @@
         { key: 'lend', label: 'Lenders’ dollars a year', calc: `${mn(D)} × ${ip(rd)}`, num: dd, shown: mn(dd), input: !faded, kind: 'mil' },
         { key: 'own', label: 'Owners’ dollars a year', calc: open ? `owners’ stake × ${ip(re)}` : `${mn(E)} × ${ip(re)}`, num: de, shown: mn(de), input: !faded, kind: 'mil' },
         { key: 'tot', label: 'Total dollars a year', calc: open ? 'lenders’ dollars + owners’ dollars' : `${mn(dd)} + ${mn(de)}`, num: dd + de, shown: mn(dd + de), input: !faded, kind: 'mil' },
-        { key: 'hr', label: 'Hurdle rate', calc: open ? `total ÷ (${mn(D)} + owners’ stake)` : `${mn(dd + de)} ÷ (${mn(D)} + ${mn(E)})`, num: (dd + de) / (D + E), shown: pc((dd + de) / (D + E)), input: true, kind: 'pct' }];
+        { key: 'hr', label: 'WACC', calc: open ? `total ÷ (${mn(D)} + owners’ stake)` : `${mn(dd + de)} ÷ (${mn(D)} + ${mn(E)})`, num: (dd + de) / (D + E), shown: pc((dd + de) / (D + E)), input: true, kind: 'pct' }];
     },
   };
   // For h.ladder: a filled cell shows its text; an input gets the placeholder that fits its kind.
@@ -132,19 +135,19 @@
     tr2: { cap: 'A taco truck costs $120,000. A bank lends $90,000 at 6%, and a part owner puts in $30,000 expecting 12%.', lines: () => LINES.truck(120000, 90000, 30000, 6, 12, 'part owner', false, true) },
     co1: { cap: 'A pizza chain owes lenders $200 million at 4%. Its owners hold 10 million shares at $30 and expect 12%.', lines: () => LINES.company(10, 30, 200, 4, 12, false, true) },
     co2: { cap: 'A burger chain owes lenders $150 million at 5%. Its owners hold 15 million shares at $30 and expect 11%. Its balance sheet shows owners’ equity of $180 million.', lines: () => LINES.company(15, 30, 150, 5, 11, false, true),
-      after: 'Its hurdle rate is 9.5%. A new burger restaurant expected to earn 10% a year clears it, so the chain should build. The $180 million balance sheet number is not used.' },
+      after: 'Its WACC is 9.5%. A new burger restaurant expected to earn 10% a year clears it, so the chain should build. The $180 million balance sheet number is not used.' },
   };
 
   const PROBLEM = {
-    tr1: (t) => ({ title: 'Halfmoon’s first food truck', place: 'Halfmoon began as one food truck. Imogen wants to show you what it had to earn.',
-      body: `<p>The truck cost <b>${m(t.C)}</b>. A bank lent <b>${m(t.L)}</b> at <b>${ip(t.rd)}</b>, and Imogen’s ${t.rel} put in <b>${m(t.E)}</b> for part ownership, expecting <b>${ip(t.re)}</b> a year. What was the truck’s hurdle rate? The first two lines are done for you.</p>` }),
-    tr2: (t) => ({ title: 'A friend’s food truck', place: 'Imogen’s friend wants to start a food truck and asks what it must earn.',
-      body: `<p>The truck costs <b>${m(t.C)}</b>. A bank lends <b>${m(t.L)}</b> at <b>${ip(t.rd)}</b>, and the friend’s ${t.rel} puts in <b>${m(t.E)}</b> for part ownership, expecting <b>${ip(t.re)}</b> a year. What is the truck’s hurdle rate?</p>` }),
-    co1: (t) => ({ title: 'A rival chain', place: 'Before Halfmoon’s own numbers, Imogen tries the table on a rival, Saltbox Grill.',
-      body: `<p>Saltbox owes lenders <b>${mn(t.D)}</b> at <b>${ip(t.rd)}</b>. Its owners hold <b>${t.N} million</b> shares at <b>${price(t.P)}</b> and expect <b>${ip(t.re)}</b> a year. What is Saltbox’s hurdle rate? The middle lines are done for you.</p>` }),
-    co2: (t) => ({ title: 'Halfmoon’s hurdle rate', place: 'Halfmoon wants to open a new restaurant, and Imogen needs the rate to judge it.',
-      body: `<p>Halfmoon owes lenders <b>${mn(t.D)}</b> at <b>${ip(t.rd)}</b>. Its owners hold <b>${t.N} million</b> shares at <b>${price(t.P)}</b> and expect <b>${ip(t.re)}</b> a year. Its balance sheet shows owners’ equity of <b>${mn(t.B)}</b>. What is Halfmoon’s hurdle rate?</p>`,
-      choice: { legend: `The new restaurant is expected to earn ${pc(t.X)} a year. Should Halfmoon build it?`, options: [['build', 'Build: it earns more than the hurdle rate'], ['pass', 'Pass: it earns less than the hurdle rate']] } }),
+    tr1: (t) => ({ title: 'The WACC of Halfmoon’s first truck', place: 'Halfmoon began as one food truck. Imogen wants to show you what it had to earn.',
+      body: `<p>The truck cost <b>${m(t.C)}</b>. A bank lent <b>${m(t.L)}</b> at <b>${ip(t.rd)}</b>, and Imogen’s ${t.rel} put in <b>${m(t.E)}</b> for part ownership, expecting <b>${ip(t.re)}</b> a year. What was the truck’s hurdle rate, its WACC? The first two lines are done for you.</p>` }),
+    tr2: (t) => ({ title: 'The WACC of a friend’s food truck', place: 'Imogen’s friend wants to start a food truck and asks what it must earn.',
+      body: `<p>The truck costs <b>${m(t.C)}</b>. A bank lends <b>${m(t.L)}</b> at <b>${ip(t.rd)}</b>, and the friend’s ${t.rel} puts in <b>${m(t.E)}</b> for part ownership, expecting <b>${ip(t.re)}</b> a year. What is the truck’s WACC?</p>` }),
+    co1: (t) => ({ title: 'A rival chain’s WACC', place: 'Before Halfmoon’s own numbers, Imogen tries the table on a rival, Saltbox Grill.',
+      body: `<p>Saltbox owes lenders <b>${mn(t.D)}</b>, and its cost of debt is <b>${ip(t.rd)}</b>. Its owners hold <b>${t.N} million</b> shares at <b>${price(t.P)}</b>, and its cost of equity is <b>${ip(t.re)}</b>. What is Saltbox’s WACC? The middle lines are done for you.</p>` }),
+    co2: (t) => ({ title: 'Halfmoon’s WACC', place: 'Halfmoon wants to open a new restaurant, and Imogen needs the rate to judge it.',
+      body: `<p>Halfmoon owes lenders <b>${mn(t.D)}</b> at <b>${ip(t.rd)}</b>. Its owners hold <b>${t.N} million</b> shares at <b>${price(t.P)}</b> and expect <b>${ip(t.re)}</b> a year. Its balance sheet shows owners’ equity of <b>${mn(t.B)}</b>. What is Halfmoon’s WACC?</p>`,
+      choice: { legend: `The new restaurant is expected to earn ${pc(t.X)} a year. Should Halfmoon build it?`, options: [['build', 'Build: it earns more than the WACC'], ['pass', 'Pass: it earns less than the WACC']] } }),
   };
 
   function taskView(t, L, h) {
@@ -152,7 +155,7 @@
     const example = h.ladder(forLadder(E.lines(), true), { filled: true, caption: E.cap }) + (E.after ? `<p>${E.after}</p>` : '');
     const co = /^co/.test(t.id);
     const table = h.ladder(forLadder(linesFor(t), false), { rows: L.rows, caption: co ? 'Your turn (amounts in millions of dollars)' : 'Your turn' })
-      + `<p class="small">${co ? 'Type amounts in millions, like 412.5, and the rate as a percentage, like 8.25%.' : 'Type the hurdle rate as a percentage, like 8.5%.'}</p>`;
+      + `<p class="small">${co ? 'Type amounts in millions, like 412.5, and the rate as a percentage, like 8.25%.' : 'Type the WACC as a percentage, like 8.5%.'}</p>`;
     const parts = [{ html: '', field: 'table' }];
     if (P.choice) parts.push({ html: '', field: 'choice' });
     return { title: P.title, place: P.place, body: P.body, example, table, parts, choice: P.choice,
@@ -219,7 +222,7 @@
     if (bad >= 0) return { ok: false, rowRes, msg: `${plain(lines[bad].label)}: ${rowRes[bad].msg}` };
     if (t.decision && e.choice !== t.decision) {
       if (!e.choice) return { ok: false, rowRes, msg: 'Now answer the question under the table.' };
-      return { ok: false, rowRes, msg: `Compare the restaurant’s ${pc(t.X)} with Halfmoon’s hurdle rate, ${pc(t.answer)}. Which is bigger?` };
+      return { ok: false, rowRes, msg: `Compare the restaurant’s ${pc(t.X)} with Halfmoon’s WACC, ${pc(t.answer)}. Which is bigger?` };
     }
     return { ok: true, rowRes };
   }
@@ -234,10 +237,10 @@
     return lvl === 1 ? say(full(blanks[0])) : lines.map((l) => say(full(l))).join('<br>');
   }
   function praise(t) {
-    if (t.id === 'tr1') return `The first truck had to earn ${m(t.tot)} a year on ${m(t.C)}, a hurdle rate of ${pc(t.answer)}. Earning less, the ${t.rel} would have done better in an index fund.`;
+    if (t.id === 'tr1') return `The first truck had to earn ${m(t.tot)} a year on ${m(t.C)}, a WACC of ${pc(t.answer)}. Earning less, the ${t.rel} would have done better in an index fund.`;
     if (t.id === 'tr2') return `The truck must earn ${pc(t.answer)} a year. That is closer to the ${t.L > t.E ? 'bank’s' : `${t.rel}’s`} rate, because the ${t.L > t.E ? 'bank' : t.rel} put in more money.`;
-    if (t.id === 'co1') return `Saltbox must earn ${pc(t.answer)} a year on the ${mn(t.D + t.E)} its lenders and owners have in it.`;
-    if (t.id === 'co2') return `Halfmoon’s hurdle rate is ${pc(t.answer)}. The new restaurant’s ${pc(t.X)} ${t.decision === 'build' ? 'clears it, so build' : 'falls short, so pass'}. The balance sheet number would have given ${pc((t.dd + t.B * t.re / 100) / (t.D + t.B))}, too low.`;
+    if (t.id === 'co1') return `Saltbox’s WACC is ${pc(t.answer)}, so it must earn that much a year on the ${mn(t.D + t.E)} its lenders and owners have in it.`;
+    if (t.id === 'co2') return `Halfmoon’s WACC is ${pc(t.answer)}. The new restaurant’s ${pc(t.X)} ${t.decision === 'build' ? 'clears it, so build' : 'falls short, so pass'}. The balance sheet number would have given ${pc((t.dd + t.B * t.re / 100) / (t.D + t.B))}, too low.`;
   }
   function selfAnswer(t) {
     const rows = []; linesFor(t).forEach((l, i) => { if (l.input) rows[i] = l.kind === 'pct' ? pc(l.num) : String(Math.round(l.num * 100) / 100); });
@@ -255,11 +258,11 @@
     calcPlaceholder: '(30000*0.05+20000*0.1)/50000',
     story: { title: 'The Hurdle Desk', kicker: 'Corporate Finance, Unit 11', company: 'Halfmoon Dumplings', team: 'Finance Team',
       from: 'Imogen Takeda', fromTitle: 'head of finance, Halfmoon Dumplings',
-      dek: 'Halfmoon Dumplings began as one food truck and now runs a chain of restaurants. It wants to open another, and Imogen Takeda, its head of finance, must tell the board what return the new restaurant has to beat. You work out that hurdle rate with her, starting with a food truck.',
+      dek: 'Halfmoon Dumplings began as one food truck and now runs a chain of restaurants. It wants to open another, and Imogen Takeda, its head of finance, must tell the board what return the new restaurant has to beat. You work out that hurdle rate, Halfmoon’s WACC, with her, starting with a food truck.',
       whatBox: '',
-      stepsLine: 'Seven short steps. Each problem shows a worked example in the same table you fill in, then you do the same calculation with your own numbers.' },
+      stepsLine: 'The desk has seven short steps. Each WACC problem first shows a solved table for another business, then the same table with your own numbers to fill in.' },
     steps: STEPS, quiz: QUIZ, walk: null, buildTasks, taskView, judgeTask, helpText, praise, selfAnswer, selfWrong, ROUND,
     note: { title: 'A note for the board', label: 'Your note to Imogen', minWords: 30, receiptHeading: 'Note to the head of finance',
-      prompt: 'Imogen presents to Halfmoon’s board next week. Give Halfmoon’s hurdle rate and say whether the new restaurant clears it. Explain why the owners’ stake uses today’s share price and not the balance sheet equity.' },
+      prompt: 'Imogen presents to Halfmoon’s board next week. Give Halfmoon’s WACC and say whether the new restaurant clears it. Explain why the owners’ stake, the market value of equity, uses today’s share price and not the balance sheet equity.' },
   };
 })(typeof window !== 'undefined' ? window : globalThis);

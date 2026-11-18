@@ -1,0 +1,73 @@
+/* The Hurdle Desk theme (FINAN IV Unit 11), 2026-11-18. Loaded after desk.css; changes the look only.
+   Halfmoon Dumplings' first food truck, hand-painted: truck teal, chili red and egg-yolk yellow on warm peach, a striped
+   scalloped awning under the header, a sign-painter's script with a painted drop shadow for the title, menu-board cards
+   with a hard offset shadow. Dark mode is the night market under string lights (yolk leads). */
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Karla:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap');
+:root{
+  --bg:#FBEEDB;--surface:#FFFAF2;--panel:#F5E2C6;--line:#E3CBA6;--line-strong:#86663F;
+  --ink:#2A1A12;--muted:#634C3A;--brand:#0B6A62;--brand-ink:#FFFFFF;--brand-tint:#DCEFEA;
+  --ok:#1B6B3C;--ok-tint:#E1F0E1;--bad:#A3241C;--bad-tint:#FBE3DD;--hint:#2E5670;--hint-tint:#E3ECEF;--focus:#2A1A12;--hl:#FFE39E;--ok-ink:#FFFFFF;
+  --chili:#C8402A;--yolk:#F2B134;--cream:#FFF6E8;--paint:#2A1A12;
+  --receipt-frame:#0B6A62;--receipt-paper:#FFF8EE;
+  --serif:'Karla','Helvetica Neue',Arial,sans-serif;--display:'Shrikhand','Cooper Black',Georgia,serif;}
+:root[data-theme="dark"]{
+  --bg:#1D1512;--surface:#271C17;--panel:#33251E;--line:#4C392C;--line-strong:#A68B73;
+  --ink:#F8ECDD;--muted:#D0BAA4;--brand:#F6BE4F;--brand-ink:#2A1A0A;--brand-tint:#3A2B14;
+  --ok:#7DD49A;--ok-tint:#173222;--bad:#FF8D84;--bad-tint:#43221E;--hint:#9FC9DC;--hint-tint:#1A2B33;--focus:#F6BE4F;--hl:#4A3916;--ok-ink:#1D1512;
+  --chili:#E8694D;--yolk:#F6BE4F;--cream:#F3E1C8;--paint:#0E0907;}
+
+body{font-size:18px;background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
+header.bar{order:-2;background:var(--bg);border-bottom:0}
+/* the awning: chili and cream stripes, a scalloped edge */
+header.bar::after{content:"";display:block;height:22px;
+  background:radial-gradient(circle at 11px 0,var(--chili) 10.5px,transparent 11px) 0 12px/44px 10px repeat-x,
+    radial-gradient(circle at 33px 0,var(--cream) 10.5px,transparent 11px) 0 12px/44px 10px repeat-x,
+    repeating-linear-gradient(90deg,var(--chili) 0 22px,var(--cream) 22px 44px) 0 0/100% 12px no-repeat;
+  filter:drop-shadow(0 2px 0 rgba(42,26,18,.25))}
+.brand{font-style:normal}
+.brand b{font:400 21px var(--display);letter-spacing:.01em}
+
+/* header art: only on the first screen */
+.desk-art{order:-1;display:none;width:calc(100% - 2.2rem);max-width:calc(820px - 2.2rem);height:auto;margin:1.6rem auto 0;border-radius:16px;border:3px solid var(--paint)}
+body:has(#startBox) .desk-art{display:block}
+@media (max-width:600px){.desk-art{aspect-ratio:2/1;object-fit:cover;object-position:35% 100%}}
+
+/* steps as menu tags with a painted shadow */
+nav.steps{padding-top:.7rem}
+nav.steps ol{gap:8px}
+nav.steps button{border-radius:8px;border:2px solid var(--paint);font:700 14.5px var(--serif);box-shadow:2px 2px 0 var(--paint);padding:.18rem .7rem}
+:root[data-theme="dark"] nav.steps button{border-color:var(--line-strong);box-shadow:2px 2px 0 #000}
+nav.steps button.done{background:var(--brand);border-color:var(--paint);color:var(--brand-ink)}
+nav.steps button[aria-current="step"]{outline:3px solid var(--chili);outline-offset:3px}
+
+/* type: sign-painter script, yolk drop shadow */
+.kicker{font:700 16px var(--serif);font-style:normal;color:var(--chili)}
+:root:not([data-theme="dark"]) .kicker{color:#A8331F}
+h1{font:400 clamp(40px,6.8vw,66px)/1.12 var(--display);color:var(--brand);letter-spacing:.005em;text-shadow:3px 3px 0 var(--yolk)}
+:root[data-theme="dark"] h1{text-shadow:3px 3px 0 var(--chili)}
+h2{font:400 28px/1.2 var(--display);letter-spacing:.01em;color:var(--ink)}
+h3{font-weight:800}
+.dek{font-size:19.5px;font-style:normal;color:var(--ink);max-width:35em}
+.points{font:400 54px/1.05 var(--display);color:var(--brand);text-shadow:2px 2px 0 var(--yolk)}
+:root[data-theme="dark"] .points{text-shadow:2px 2px 0 var(--chili)}
+
+/* cards: the menu board, outlined and lifted on a painted shadow */
+.memo{border-radius:14px;border:3px solid var(--paint);box-shadow:6px 6px 0 var(--yolk)}
+:root[data-theme="dark"] .memo{border-color:var(--line-strong);box-shadow:6px 6px 0 #000}
+.box{border-radius:14px;border:2px dashed var(--line-strong)}
+.stamp{border-radius:999px;border-width:2px}
+.btn,.btn-calc,.btn-quiet{border-radius:10px}
+.btn{font-weight:800;border:2px solid var(--paint);box-shadow:3px 3px 0 var(--paint)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--paint)}
+.btn.secondary{box-shadow:3px 3px 0 var(--line-strong);border-color:var(--paint)}
+:root[data-theme="dark"] .btn,:root[data-theme="dark"] .btn.secondary{border-color:#000;box-shadow:3px 3px 0 #000}
+@media (prefers-reduced-motion:reduce){.btn:active{transform:none}}
+.choice span{border-radius:10px;border-width:2px}
+
+/* tables: menu-board columns, headed in teal over a dotted chili line */
+table.cf th{font:800 14.5px var(--serif);color:var(--brand);border-bottom:3px dotted var(--chili)}
+table.cf caption{font-style:italic}
+table.cf tfoot tr.total td{border-top:2.5px solid var(--ink)}
+.formula{border-radius:10px;border:2px dashed var(--line)}
+.calc-strip{border-left-color:var(--yolk);border-radius:0 12px 12px 0}
+details.example{border-radius:12px;border-left-color:var(--brand)}
